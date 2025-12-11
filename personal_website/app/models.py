@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, ID, firstname, middlename, lastname, email, username, role, status):
+    def __init__(self, ID, firstname, middlename=None, lastname="", email="", username="", role="user", status="inactive"):
         self.ID = ID
         self.firstname = firstname
         self.middlename = middlename
@@ -10,13 +10,23 @@ class User:
         self.status = status
 
     def full_name(self):
-        return f"{self.firstname} {self.middlename} {self.lastname}"
+        """Return a sensible full name while skipping missing parts.
+
+        This avoids returning 'None' for missing middlename or producing
+        extra spaces when parts are empty.
+        """
+        parts = [p for p in (self.firstname, self.middlename, self.lastname) if p]
+        return " ".join(parts).strip()
 
     def is_admin(self):
-        return self.role.lower() == "admin"
+        """Safely check whether the user has the admin role (case-insensitive)."""
+        return bool(getattr(self, 'role', None)) and str(self.role).lower() == "admin"
 
     def activate(self):
         self.status = "active"
 
     def deactivate(self):
         self.status = "inactive"
+
+    def __repr__(self):
+        return f"User(ID={self.ID!r}, username={self.username!r}, email={self.email!r}, role={self.role!r}, status={self.status!r})"
