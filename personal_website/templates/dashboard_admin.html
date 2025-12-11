@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome, Admin {{ session.username }}!</p>
+
+<h4 class="mt-4">Manage Users</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Game Access</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{ u[0] }}</td>
+            <td>{{ u[8] }}</td>
+            <td>{{ u[7] }}</td>
+            <td>{{ u[10] }}</td>
+            <td>{{ u[11] }}</td>
+            <td>{{ u[12] }}</td>
+            <td>
+                <a href="{{ url_for('dashboard.toggle_status', user_id=u[0]) }}" class="btn btn-sm btn-warning">
+                    {% if u[11]=='active' %}Deactivate{% else %}Activate{% endif %}
+                </a>
+                <a href="{{ url_for('dashboard.toggle_game', user_id=u[0]) }}" class="btn btn-sm btn-info">
+                    {% if u[12]=='enabled' %}Disable Game{% else %}Enable Game{% endif %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>User Dashboard</h2>
+<p>Welcome, {{ session.username }}!</p>
+<a href="{{ url_for('games.play_game') }}" class="btn btn-warning">Play Game</a>
+<a href="{{ url_for('blog.blog_page') }}" class="btn btn-info">Blog</a>
+{% endblock %}
