@@ -25,10 +25,11 @@ from app.routes.auth import auth
 from app.routes.dashboard import dashboard
 from app.routes.profile import profile
 from app.routes.blog import blog
-from app.routes.games import games as games_bp
+from app.routes.game import games as games_bp
 
 app.register_blueprint(auth)
 app.register_blueprint(dashboard)
 app.register_blueprint(profile)
 app.register_blueprint(blog)
 app.register_blueprint(games_bp)
+
